@@ -20,6 +20,7 @@ public class Question {
         System.out.println("Question #" + id + ": " + text);
     }
 
+
     @Override
     public String toString() {
         return "Question{id=" + id + ", text='" + text + "'}";
