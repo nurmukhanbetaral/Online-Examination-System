@@ -49,5 +49,25 @@ public class DatabaseManager {
             pstmt.executeUpdate();
             System.out.println("Кандидат удален из БД.");
         } catch (SQLException e) { System.out.println(e.getMessage()); }
+
+    }
+    public List<Candidate> getAllCandidates() {
+        List<Candidate> candidates = new ArrayList<>();
+        String sql = "SELECT * FROM candidates ORDER BY score DESC"; // Сортируем по баллам
+        try (Connection conn = connect();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+
+            while (rs.next()) {
+                // Создаем объект Candidate (id, name)
+                Candidate c = new Candidate(rs.getInt("id"), rs.getString("name"));
+                // Устанавливаем баллы
+                c.setScore(rs.getInt("score"));
+                candidates.add(c);
+            }
+        } catch (SQLException e) {
+            System.out.println("Ошибка при получении кандидатов: " + e.getMessage());
+        }
+        return candidates;
     }
 }
