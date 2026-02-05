@@ -18,7 +18,7 @@ public class ExamServer {
             sendJsonResponse(exchange, questions);
         });
 
-            server.createContext("/api/candidates", exchange -> {
+        server.createContext("/api/candidates", exchange -> {
             List<Candidate> candidates = db.getAllCandidates();
             sendJsonResponse(exchange, candidates);
         });
@@ -35,12 +35,11 @@ public class ExamServer {
         String json = gson.toJson(data);
         byte[] response = json.getBytes("UTF-8");
 
-    exchange.getResponseHeaders().set("Content-Type", "application/json; charset=UTF-8");
+        exchange.getResponseHeaders().set("Content-Type", "application/json; charset=UTF-8");
         exchange.sendResponseHeaders(200, response.length);
 
         try (OutputStream os = exchange.getResponseBody()) {
             os.write(response);
         }
     }
-
 }

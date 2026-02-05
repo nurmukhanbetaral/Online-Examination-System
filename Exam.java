@@ -15,7 +15,6 @@ public class Exam {
     public void addQuestion(Question q) { questions.add(q); }
     public void addCandidate(Candidate c) { candidates.add(c); }
 
-    // РАНДОМ: Выбор случайных вопросов
     public List<Question> getRandomQuestions(int count) {
         List<Question> shuffled = new ArrayList<>(questions);
         Collections.shuffle(shuffled);
@@ -29,13 +28,10 @@ public class Exam {
                 .findFirst()
                 .orElse(null);
     }
-
-    // СОРТИРОВКА по баллам
     public void sortCandidatesByScore() {
         candidates.sort((c1, c2) -> Integer.compare(c2.getScore(), c1.getScore()));
     }
 
-    // ФИЛЬТРАЦИЯ (например, поиск отличников)
     public List<Candidate> getTopCandidates(int threshold) {
         return candidates.stream()
                 .filter(c -> c.getScore() >= threshold)
